@@ -6,12 +6,22 @@ Steps to run the project
 
 In total, the cluster consist of 2 shards(with 2 node replica set), 1 config server, 1 mongos router
 
-After running the anove command the DB will be populated with randomly generated data.
+After that, you need to run `./init.sh` and be patient, in the middle of the execution there is a sleep for half a minute, it's done explicitly to let hosts to have enough time to choose the primary nodes.
+
+After that you may run on your host machine `node generate.js` as a result you'll get a file `urls.json` which could be imported into sharded DBs to prove that sharding works.
+
+Move `urls.json` into scripts folder then run the following command:
+
+`docker exec -it mongos1 bash -c "mongoimport --db shortenerDb --collection urls --jsonArray --file /scripts/urls.json"`
+
+To see the status of distribution run the following command:
+
+`docker exec -it mongos1 bash -c "mongo < /scripts/show-shard-status.js"`
 
 The service is exposing two API entrypoints
 
-GET /resolve?q=<shortUrl>, whereas <shortUrl> w/o domain name (just hash)
-POST /shorten, whereas data should be submitted as a JSON
+- GET `/resolve?q=<shortUrl>`
+- POST `/shorten`
 
 For converting full URL into short version, open the terminal and run the following command:
 
