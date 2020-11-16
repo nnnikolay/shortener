@@ -8,7 +8,7 @@ In total, the cluster consist of 2 shards(with 2 node replica set), 1 config ser
 
 After that, you need to run `./init.sh` and be patient, in the middle of the execution there is a sleep for half a minute, it's done explicitly to let hosts to have enough time to choose the primary nodes.
 
-After that you may run on your host machine `node generate.js` as a result you'll get a file `urls.json` which could be imported into sharded DBs to prove that sharding works.
+After that you may want to jumpt into `./server/` folder to run on your host machine `node generate.js` as a result you'll get a file `urls.json` which could be imported into sharded DBs to the status of the distribution in the cluster.
 
 Move `urls.json` into scripts folder then run the following command:
 
@@ -25,7 +25,7 @@ The service is exposing two API entrypoints
 
 For converting full URL into short version, open the terminal and run the following command:
 
-`> curl -v "http://localhost:3000/shorten" -X POST -d "{\"url\": \"http://google.com/luckyme"}" -H "Content-Type: application/json"`
+`> curl -v "http://localhost:3000/shorten" -X POST -d "{\"url\": \"http://google.com/luckyme\"}" -H "Content-Type: application/json"`
 
 For resolving the short URL into full you need to run the following command:
 
