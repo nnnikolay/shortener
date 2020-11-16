@@ -26,8 +26,6 @@ app.get('/resolve', async (req, res) => {
   const db = await databaseConnect()
   const shortUrl = req.query.h
   console.log('Requested hash: ' + shortUrl)
-  
-  // console.log(JSON.stringify({ shortUrl: shortUrl }))
 
   const url = await db.collection('urls').findOne({ shortUrl: shortUrl })
   console.log('Result: ' + JSON.stringify(url))
@@ -42,10 +40,6 @@ app.get('/resolve', async (req, res) => {
 app.post('/shorten', async (req, res) => {
   const db = await databaseConnect()
   const originalUrl = req.body.url
-
-  // if(!validUrl.isUri(originalUrl)){
-  //   return res.status(422).json("Invalid URL")
-  // }
 
   const shortUrl = nanoid(6)
 
@@ -63,7 +57,6 @@ app.post('/shorten', async (req, res) => {
     }
   } catch (err) {
     console.error(err.message)
-    // return res.status(500).json("Internal Server error " + err.message)
   }
 })    
 
